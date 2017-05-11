@@ -7,28 +7,6 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	private float movementspeed =1.0f;
 
-	[SerializeField]
-	private float fireDelay =1.0f; //time between shots in seconds
-	private float timeSinceShot = 0.0f;
-	[SerializeField]
-	private float shotSpeed =1.0f;
-	[SerializeField]
-	private float shotSurvivalTime =2.0f;
-	[SerializeField]
-	private float shotDamage =1.0f;
-	[SerializeField]
-	private GameObject shotObject;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		updateActionInput ();
-	}
-
 	void FixedUpdate () {
 		updateMovement ();
 	}
@@ -55,23 +33,5 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	private void updateActionInput(){
-		timeSinceShot -= Time.deltaTime;
 
-		if (Input.GetButton("Fire1")) {
-			if (timeSinceShot <= 0.0f) {
-				//shoot
-				fireShot();
-				timeSinceShot = fireDelay;
-			}
-		}
-	}
-
-	private void fireShot(){
-		GameObject shotInstance = Instantiate (shotObject,this.transform.position,this.transform.rotation);
-		ShotScript shotScript = shotInstance.GetComponent<ShotScript> ();
-		shotScript.damage = shotDamage;
-		shotScript.shotSpeed = shotSpeed;
-		shotScript.aliveTime = shotSurvivalTime;
-	}
 }
