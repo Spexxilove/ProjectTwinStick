@@ -1,2 +1,1 @@
-move projectile spawner of player to front of ship. (with possible  multiple spawners in mind)
 make basic game manager spawning enemies in waves.
