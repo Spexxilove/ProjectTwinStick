@@ -1,1 +1,2 @@
-make basic game manager spawning enemies in waves.
+Pause Game / Pause Screen
+Score

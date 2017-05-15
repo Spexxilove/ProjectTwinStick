@@ -7,7 +7,7 @@ public class Health : MonoBehaviour {
 	[SerializeField]
 	private float initialHealth = 5.0f;
 	private float currentHealth;
-	private bool isAlive;
+	public bool isAlive;
 
 	// Use this for initialization
 	void Start () {
