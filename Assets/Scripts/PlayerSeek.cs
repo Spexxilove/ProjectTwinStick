@@ -29,8 +29,10 @@ public class PlayerSeek : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		faceTarget ();
-		rigidBody.MovePosition (rigidBody.position+(Vector2)rigidBody.transform.up * movementSpeed * Time.fixedDeltaTime);
+		if (target != null) {
+			faceTarget ();
+			rigidBody.MovePosition (rigidBody.position + (Vector2)rigidBody.transform.up * movementSpeed * Time.fixedDeltaTime);
+		}
 	}
 
 	private void faceTarget (){

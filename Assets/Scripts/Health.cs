@@ -30,6 +30,12 @@ public class Health : MonoBehaviour {
 
 	// do explosions and things here
 	private void die(){
+		if (CompareTag ("Enemy")) {
+			EnemyDeath ed = GetComponent<EnemyDeath> ();
+			if (ed != null) {
+				ed.onEnemyDeath ();
+			}
+		}
 		Destroy (gameObject);
 	}
 }

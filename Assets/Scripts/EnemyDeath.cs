@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class EnemyDeath : MonoBehaviour {
 
-	void OnDestroy(){
-		WaveGenerator wGenerator =  GameObject.FindGameObjectWithTag ("GameController").GetComponent<WaveGenerator>();
-		wGenerator.enemyKilled ();
+	public void onEnemyDeath(){
+		
+		if (GameObject.FindGameObjectsWithTag ("Enemy").Length == 1) {
+			WaveGenerator wGenerator = GameObject.FindGameObjectWithTag ("GameController").GetComponent<WaveGenerator> ();
+			wGenerator.enemiesKilled ();
+		}
 	}
 }
