@@ -15,6 +15,16 @@ public class playerShootingScript : MonoBehaviour {
 	public float shotDamage  =1.0f ;
 	[SerializeField]
 	private GameObject shotObject;
+
+	//reference points for cannons
+	[SerializeField]
+	private GameObject playerCannonLeft;
+	[SerializeField]
+	private GameObject playerCannonFront;
+	[SerializeField]
+	private GameObject playerCannonRight;
+
+
 	[SerializeField]
 	private GameObject[] playerCannons;
 
@@ -22,6 +32,7 @@ public class playerShootingScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameController = GameObject.Find ("GameController").GetComponent<GameController> ();
+		addCannon ();
 	}
 	
 	// Update is called once per frame
@@ -53,5 +64,42 @@ public class playerShootingScript : MonoBehaviour {
 		}
 	}
 
+	public void addCannon (){
+		
+		foreach(GameObject oldCannon in playerCannons){
+			Destroy(oldCannon);
+		}
+
+		int numberOfCannons = playerCannons.Length  + 1;
+		GameObject cannon = new GameObject ("Cannon");
+		playerCannons = new GameObject[numberOfCannons];
+
+		// front cannon if number of cannons is odd
+		if (numberOfCannons % 2 == 1) {
+			playerCannons[playerCannons.Length-1]=Instantiate (cannon, playerCannonFront.transform.position, playerCannonFront.transform.rotation, transform);
+			numberOfCannons--;
+		}
+
+		if (numberOfCannons>0) {
+			// left cannons
+			Vector3 position = playerCannonLeft.transform.position;
+			Vector3 spacing = (playerCannonFront.transform.position - playerCannonLeft.transform.position);
+			spacing*=1.0f / (numberOfCannons / 2.0f);
+			for (int i = 0; i < numberOfCannons / 2; i++) {
+				playerCannons [i] = Instantiate (cannon, position, playerCannonFront.transform.rotation, transform);
+				position += spacing;
+			}
+
+			// right cannons
+			position = playerCannonRight.transform.position;
+			spacing = (playerCannonFront.transform.position - playerCannonRight.transform.position);
+			spacing*= (1.0f / (numberOfCannons / 2.0f));
+			for (int i = numberOfCannons / 2; i < numberOfCannons; i++) {
+				playerCannons [i] = Instantiate (cannon, position, playerCannonFront.transform.rotation, transform);
+				position += spacing;
+			}
+		}
+
+	}
 
 }

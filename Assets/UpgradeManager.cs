@@ -45,4 +45,9 @@ public class UpgradeManager : MonoBehaviour {
 	private void upgradeComplete(){
 		gameController.endUpgradePhase ();
 	}
+
+	public void addCannon(){
+		playerShooting.addCannon ();
+		upgradeComplete ();
+	}
 }
