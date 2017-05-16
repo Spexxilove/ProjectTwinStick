@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaveGenerator : MonoBehaviour {
 
 	private int wavenumber = 0;
+	private int numberOfAliveEnemies = 0;
 
 	[SerializeField]
 	private float minDistanceFromCenter = 3.0f;
@@ -29,7 +30,7 @@ public class WaveGenerator : MonoBehaviour {
 		wavenumber++;
 		int numberOfEnemies = wavenumber;
 
-
+		numberOfAliveEnemies += numberOfEnemies;
 		for (int i = 0; i < numberOfEnemies; i++) {
 			GameObject enemy = getRandomEnemy ();
 			Vector3 spawnLocation = getRandomSpawnLocation ();
@@ -57,5 +58,11 @@ public class WaveGenerator : MonoBehaviour {
 		if (GameObject.Find ("TriggerArea") == null) {
 			Instantiate (waveTrigger);
 		}
+	}
+
+	public void enemyKilled(){
+		numberOfAliveEnemies--;
+		if (numberOfAliveEnemies == 0)
+			gameObject.GetComponent<GameController> ().endWave ();;
 	}
 }

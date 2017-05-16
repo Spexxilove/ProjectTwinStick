@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDeath : MonoBehaviour {
+public class EnemyDeath : MonoBehaviour
+{
 
-	public void onEnemyDeath(){
-		
-		if (GameObject.FindGameObjectsWithTag ("Enemy").Length == 1) {
-			GameController wGenerator = GameObject.Find("GameController").GetComponent<GameController> ();
-			wGenerator.endWave ();
-		}
+	public void onEnemyDeath ()
+	{
+
+		WaveGenerator wGenerator = GameObject.Find ("GameController").GetComponent<WaveGenerator> ();
+		wGenerator.enemyKilled ();
+
 	}
 }
