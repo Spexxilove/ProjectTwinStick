@@ -46,8 +46,8 @@ public class WaveGenerator : MonoBehaviour {
 		Vector2 spawnLocation = Random.insideUnitCircle * (maxDistanceFromCenter-minDistanceFromCenter);
 
 		// move min dist away from center
-		spawnLocation.x += minDistanceFromCenter * Mathf.Sign (spawnLocation.x);
-		spawnLocation.y += minDistanceFromCenter * Mathf.Sign (spawnLocation.y);
+		spawnLocation  += spawnLocation.normalized*minDistanceFromCenter ;
+
 
 		return new Vector3 (spawnLocation.x, spawnLocation.y,0);
 	}

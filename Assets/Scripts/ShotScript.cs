@@ -7,6 +7,7 @@ public class ShotScript : MonoBehaviour {
 	public float shotSpeed = 5.0f; // set by fireing script
 	public float aliveTime = 5.0f; // Time before shot is destroyed in seconds . set by fireing script
 	public float damage = 1.0f;
+	public bool isPiercing =false;
 	private float timeSinceInstantiation = 0.0f;
 
 	void FixedUpdate () {
@@ -53,7 +54,9 @@ public class ShotScript : MonoBehaviour {
 			return;
 		}
 		enemyHealth.takeDamage (damage);
-		triggerDeathEffects ();
+		if (!isPiercing) {
+			triggerDeathEffects ();
+		}
 
 	}
 

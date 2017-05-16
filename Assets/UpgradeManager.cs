@@ -50,4 +50,9 @@ public class UpgradeManager : MonoBehaviour {
 		playerShooting.addCannon ();
 		upgradeComplete ();
 	}
+
+	public void setPiercing(){
+		playerShooting.setPiercing (true);
+		upgradeComplete ();
+	}
 }

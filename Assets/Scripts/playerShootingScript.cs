@@ -14,6 +14,8 @@ public class playerShootingScript : MonoBehaviour {
 	[SerializeField]
 	public float shotDamage  =1.0f ;
 	[SerializeField]
+	private bool hasPierce  =false ;
+	[SerializeField]
 	private GameObject shotObject;
 
 	//reference points for cannons
@@ -61,6 +63,7 @@ public class playerShootingScript : MonoBehaviour {
 			shotScript.damage = shotDamage;
 			shotScript.shotSpeed = shotSpeed;
 			shotScript.aliveTime = shotSurvivalTime;
+			shotScript.isPiercing = hasPierce;
 		}
 	}
 
@@ -100,6 +103,10 @@ public class playerShootingScript : MonoBehaviour {
 			}
 		}
 
+	}
+
+	public void setPiercing(bool enabled){
+		hasPierce = enabled;
 	}
 
 }
