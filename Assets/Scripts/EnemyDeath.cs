@@ -7,8 +7,8 @@ public class EnemyDeath : MonoBehaviour {
 	public void onEnemyDeath(){
 		
 		if (GameObject.FindGameObjectsWithTag ("Enemy").Length == 1) {
-			WaveGenerator wGenerator = GameObject.FindGameObjectWithTag ("GameController").GetComponent<WaveGenerator> ();
-			wGenerator.enemiesKilled ();
+			GameController wGenerator = GameObject.Find("GameController").GetComponent<GameController> ();
+			wGenerator.endWave ();
 		}
 	}
 }

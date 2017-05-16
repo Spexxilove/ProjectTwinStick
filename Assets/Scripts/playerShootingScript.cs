@@ -5,25 +5,29 @@ using UnityEngine;
 public class playerShootingScript : MonoBehaviour {
 
 	[SerializeField]
-	private float fireDelay =1.0f; //time between shots in seconds
+	public float fireDelay =1.0f; //time between shots in seconds
 	private float timeSinceShot = 0.0f;
 	[SerializeField]
 	private float shotSpeed =1.0f;
 	[SerializeField]
 	private float shotSurvivalTime =2.0f;
 	[SerializeField]
-	private float shotDamage =1.0f;
+	public float shotDamage  =1.0f ;
 	[SerializeField]
 	private GameObject shotObject;
 	[SerializeField]
 	private GameObject[] playerCannons;
+
+	private GameController gameController;
 	// Use this for initialization
 	void Start () {
-		
+		gameController = GameObject.Find ("GameController").GetComponent<GameController> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (gameController.isPaused)
+			return;
 		updateActionInput ();
 	}
 
@@ -48,4 +52,6 @@ public class playerShootingScript : MonoBehaviour {
 			shotScript.aliveTime = shotSurvivalTime;
 		}
 	}
+
+
 }

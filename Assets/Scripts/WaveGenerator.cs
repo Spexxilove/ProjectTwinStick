@@ -51,15 +51,11 @@ public class WaveGenerator : MonoBehaviour {
 
 		return new Vector3 (spawnLocation.x, spawnLocation.y,0);
 	}
-
-	public void enemiesKilled(){
 		
 
-			endWave ();
-
-	}
-
-	private void endWave(){
-		Instantiate (waveTrigger);
+	public void newWaveTrigger(){
+		if (GameObject.Find ("TriggerArea") == null) {
+			Instantiate (waveTrigger);
+		}
 	}
 }

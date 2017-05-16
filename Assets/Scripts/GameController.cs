@@ -6,13 +6,15 @@ public class GameController : MonoBehaviour {
 
 	public GameObject GameOverWindow;
 	public GameObject PausedWindow;
-	public bool isPaused { get; private set; }
-
+	public GameObject UpgradeWindow;
+	public bool isPaused  { get; private set; }
+	public bool isUpgrading  { get; private set; }
 
 	private GameObject player;
 	// Use this for initialization
 	void Start () {
 		unPause ();
+		isUpgrading = false;
 		player = GameObject.Find ("Player");
 	}
 	
@@ -21,8 +23,7 @@ public class GameController : MonoBehaviour {
 		if (isPaused)
 			return;
 		if (Input.GetButtonDown("Cancel")) {
-			Time.timeScale = 0.0f;
-			isPaused = true;
+			pause ();
 			PausedWindow.SetActive (true);
 		}
 
@@ -34,10 +35,34 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void pause(){
+		Time.timeScale = 0.0f;
+		isPaused = true;
+	}
+
 	public void unPause(){
-		if (isPaused) {
+		if (!isUpgrading && isPaused) {
 			isPaused = false;
 			Time.timeScale = 1.0f;
+		}
+	}
+
+	public void startUpgradePhase(){
+		UpgradeWindow.SetActive (true);
+		isUpgrading = true;
+		pause ();
+	}
+
+	public void endUpgradePhase(){
+		UpgradeWindow.SetActive (false);
+		isUpgrading = false;
+		unPause ();
+	}
+
+	public void endWave(){
+		if (!isUpgrading) {
+			startUpgradePhase ();
+			GetComponent<WaveGenerator> ().newWaveTrigger ();
 		}
 	}
 }
