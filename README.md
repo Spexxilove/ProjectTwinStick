@@ -20,3 +20,7 @@ Secondary (optional) Features:
 	- Synergistic weapon upgrades / projectile changes (e.g. beam, seeker missile etc.)
 	- Shop mechanic where player can buy health/ upgrades etc. for points in between waves.
 	- Boss enemy
+
+Used software:
+	sound:
+		-Bfxr (http://www.bfxr.net/)

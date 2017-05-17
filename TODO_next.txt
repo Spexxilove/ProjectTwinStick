@@ -1,2 +1,3 @@
-Pause Game / Pause Screen
+pause on game over
 Score
+music

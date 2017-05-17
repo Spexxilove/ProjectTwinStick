@@ -9,19 +9,28 @@ public class Health : MonoBehaviour {
 	private float currentHealth;
 	public bool isAlive;
 
+	[SerializeField]
+	private AudioClip[] takeDamageSounds;
+	[SerializeField]
+	private AudioClip[] DeathSounds;
+
 	// Use this for initialization
 	void Start () {
 		currentHealth = initialHealth;
 		isAlive = true;
 	}
 
-	public float takeDamage(float damage){
+	public void takeDamage(float damage){
+		if (!isAlive)
+			return;
 		currentHealth -= damage;
 		if (currentHealth <= 0.0f) {
-			isAlive = false;
+			
 			die ();
+		} else {
+			playRandomSound (takeDamageSounds);
 		}
-		return currentHealth;
+			
 	}
 
 	public float getHealth(){
@@ -30,12 +39,20 @@ public class Health : MonoBehaviour {
 
 	// do explosions and things here
 	private void die(){
+		isAlive = false;
 		if (CompareTag ("Enemy")) {
 			EnemyDeath ed = GetComponent<EnemyDeath> ();
 			if (ed != null) {
 				ed.onEnemyDeath ();
 			}
 		}
+		playRandomSound (DeathSounds);
 		Destroy (gameObject);
+	}
+
+	private void playRandomSound(AudioClip[] sounds){
+		if (sounds != null && sounds.Length > 0) {
+			AudioSource.PlayClipAtPoint (sounds [Random.Range (0, sounds.Length)], transform.position);
+		}
 	}
 }
