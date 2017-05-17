@@ -10,6 +10,8 @@ public class Health : MonoBehaviour {
 	public bool isAlive;
 
 	[SerializeField]
+	private ParticleSystem deathEffect;
+	[SerializeField]
 	private AudioClip[] takeDamageSounds;
 	[SerializeField]
 	private AudioClip[] DeathSounds;
@@ -47,6 +49,9 @@ public class Health : MonoBehaviour {
 			}
 		}
 		playRandomSound (DeathSounds);
+		if (deathEffect != null) {
+			Instantiate (deathEffect, transform.position, Quaternion.identity);
+		}
 		Destroy (gameObject);
 	}
 
