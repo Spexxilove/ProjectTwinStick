@@ -69,7 +69,10 @@ public class GameController : MonoBehaviour
 
 	public void endWave ()
 	{
-		
+		//destroy all projectiles on screen
+		foreach (GameObject enemyProjectile in GameObject.FindGameObjectsWithTag("EnemyProjectile")) {
+			Destroy (enemyProjectile);
+		}
 		startUpgradePhase ();
 		GetComponent<WaveGenerator> ().newWaveTrigger ();
 

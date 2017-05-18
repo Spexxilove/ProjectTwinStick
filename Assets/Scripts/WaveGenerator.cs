@@ -35,12 +35,13 @@ public class WaveGenerator : MonoBehaviour {
 			GameObject enemy = getRandomEnemy ();
 			Vector3 spawnLocation = getRandomSpawnLocation ();
 
-			Instantiate (enemy, spawnLocation,new Quaternion());
+			GameObject spawnedEnemy = Instantiate (enemy, spawnLocation,new Quaternion());
+			spawnedEnemy.transform.Rotate(Vector3.forward,Random.Range(0,359));
 		}
 	}
 
 	private GameObject getRandomEnemy(){
-		return spawnableEnemies[Random.Range(0,spawnableEnemies.Length-1)];
+		return spawnableEnemies[Random.Range(0,spawnableEnemies.Length)];
 	}
 
 	private Vector3 getRandomSpawnLocation(){

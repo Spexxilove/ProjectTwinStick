@@ -66,6 +66,7 @@ public class playerShootingScript : MonoBehaviour {
 			shotScript.shotSpeed = shotSpeed;
 			shotScript.aliveTime = shotSurvivalTime;
 			shotScript.isPiercing = hasPierce;
+			shotScript.targetTag = "Enemy";
 		}
 		playRandomShotSound ();
 	}

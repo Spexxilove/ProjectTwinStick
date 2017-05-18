@@ -7,7 +7,7 @@ using UnityEngine;
 
 		private void Start()
 		{
-			Destroy(gameObject, GetComponent<ParticleSystem>().duration); 
+		Destroy(gameObject, GetComponent<ParticleSystem>().main.duration); 
 		}
 
 	}

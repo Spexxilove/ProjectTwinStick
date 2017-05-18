@@ -7,7 +7,7 @@ public class Health : MonoBehaviour {
 	[SerializeField]
 	private float initialHealth = 5.0f;
 	private float currentHealth;
-	public bool isAlive;
+	public bool isAlive=true;
 
 	[SerializeField]
 	private ParticleSystem deathEffect;
