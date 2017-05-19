@@ -5,8 +5,8 @@ using UnityEngine;
 public class Health : MonoBehaviour {
 
 	[SerializeField]
-	private float initialHealth = 5.0f;
-	private float currentHealth;
+	public float initialHealth = 5.0f;
+	public float currentHealth { get; private set;}
 	public bool isAlive=true;
 
 	[SerializeField]
