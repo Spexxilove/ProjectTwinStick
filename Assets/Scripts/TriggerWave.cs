@@ -12,15 +12,16 @@ public class TriggerWave : MonoBehaviour {
 
 	private bool insideTrigger = false;
 	private GameObject gameController;
+	private GameController gameControllerScript;
 
 	// Use this for initialization
 	void Start () {
 		gameController = GameObject.FindGameObjectWithTag ("GameController");
-
+		gameControllerScript = gameController.GetComponent<GameController> ();
 	}
 
 	void Update(){
-		if (insideTrigger) {
+		if (insideTrigger && !gameControllerScript.isPaused) {
 			currentTimer += Time.deltaTime;
 			if (currentTimer >= spawnTimer) {
 				triggerWave ();
