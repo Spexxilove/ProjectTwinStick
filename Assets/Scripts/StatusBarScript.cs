@@ -26,7 +26,7 @@ public class StatusBarScript : MonoBehaviour {
 	void Start () {
 		healthScript = GameObject.Find ("Player").GetComponent<Health> ();
 		currentValue = healthScript.getHealth();
-		maxValue = healthScript.initialHealth;
+		maxValue = healthScript.maxHealth;
 	}
 	
 	// Update is called once per frame

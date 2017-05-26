@@ -5,7 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour {
 
 	[SerializeField]
-	public float initialHealth = 5.0f;
+	public float maxHealth = 5.0f;
 	public float currentHealth { get; private set;}
 	public bool isAlive=true;
 
@@ -18,7 +18,7 @@ public class Health : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		currentHealth = initialHealth;
+		currentHealth = maxHealth;
 		isAlive = true;
 	}
 
@@ -59,5 +59,17 @@ public class Health : MonoBehaviour {
 		if (sounds != null && sounds.Length > 0) {
 			AudioSource.PlayClipAtPoint (sounds [Random.Range (0, sounds.Length)], transform.position);
 		}
+	}
+
+	public void heal(float amount){
+		if (currentHealth + amount > maxHealth) {
+			currentHealth = maxHealth;
+		} else {
+			currentHealth += amount;
+		}
+	}
+
+	public bool isFullHealth(){
+		return currentHealth == maxHealth;
 	}
 }

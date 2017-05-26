@@ -14,7 +14,7 @@ public class playerShootingScript : MonoBehaviour {
 	[SerializeField]
 	public float shotDamage  =1.0f ;
 	[SerializeField]
-	private bool hasPierce  =false ;
+	public bool hasPierce  { get; private set; }
 	[SerializeField]
 	private GameObject shotObject;
 
@@ -35,6 +35,7 @@ public class playerShootingScript : MonoBehaviour {
 	private GameController gameController;
 	// Use this for initialization
 	void Start () {
+			hasPierce=false;
 		gameController = GameObject.Find ("GameController").GetComponent<GameController> ();
 		addCannon ();
 	}

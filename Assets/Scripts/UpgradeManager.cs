@@ -13,6 +13,8 @@ public class UpgradeManager : MonoBehaviour {
 	private float fireRateUpMultiplier; // between 0 and 1
 	[SerializeField]
 	private float damageUpAmount; // amount added per damage up
+	[SerializeField]
+	private float upgradeHealAmount;
 
 	// Use this for initialization
 	void Start () {
@@ -53,6 +55,11 @@ public class UpgradeManager : MonoBehaviour {
 
 	public void setPiercing(){
 		playerShooting.setPiercing (true);
+		upgradeComplete ();
+	}
+
+	public void healPlayer(){
+		player.GetComponent<Health> ().heal (upgradeHealAmount);
 		upgradeComplete ();
 	}
 }
