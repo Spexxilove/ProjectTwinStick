@@ -57,14 +57,14 @@ public class GameController : MonoBehaviour
 	{
 		UpgradeWindow.SetActive (true);
 		isUpgrading = true;
-		pause ();
+		isPaused = true;
 	}
 
 	public void endUpgradePhase ()
 	{
 		UpgradeWindow.SetActive (false);
 		isUpgrading = false;
-		unPause ();
+		isPaused = false;
 	}
 
 	public void endWave ()

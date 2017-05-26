@@ -6,9 +6,16 @@ public class PlayerController : MonoBehaviour {
 
 	[SerializeField]
 	private float movementspeed =1.0f;
+	private GameController gameController;
+
+	void Start(){
+		gameController = GameObject.Find ("GameController").GetComponent<GameController> ();
+	}
 
 	void FixedUpdate () {
-		updateMovement ();
+		if (!gameController.isPaused) {
+			updateMovement ();
+		}
 	}
 
 	private void updateMovement(){

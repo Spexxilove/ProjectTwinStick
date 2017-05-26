@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaveGenerator : MonoBehaviour {
 
-	private int wavenumber = 0;
+	public int wavenumber { get; private set; }
 	private int numberOfAliveEnemies = 0;
 
 	[SerializeField]
@@ -23,6 +23,7 @@ public class WaveGenerator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		wavenumber = 0;
 		Instantiate (waveTrigger);
 	}
 
