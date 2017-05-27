@@ -40,5 +40,13 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	// amount can be positive or negative
+	// speed has a lower boundary
+	public void movementSpeedChange(float amount){
+		if (movementspeed + amount > 1.0f) {
+			movementspeed += amount;
+		}
+	}
+
 
 }

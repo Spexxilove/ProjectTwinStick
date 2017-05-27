@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ButtonDisableOnPLayerFullHealth : MonoBehaviour {
 
-	// Use this for initialization
 	void OnEnable () {
 		GameObject player = GameObject.Find ("Player");
 		if (player == null)

@@ -15,6 +15,11 @@ public class UpgradeManager : MonoBehaviour {
 	private float damageUpAmount; // amount added per damage up
 	[SerializeField]
 	private float upgradeHealAmount;
+	[SerializeField]
+	private float movementSpeedUpAmount;
+	[SerializeField]
+	private float shotspeedUpAmount;
+
 
 	// Use this for initialization
 	void Start () {
@@ -60,6 +65,16 @@ public class UpgradeManager : MonoBehaviour {
 
 	public void healPlayer(){
 		player.GetComponent<Health> ().heal (upgradeHealAmount);
+		upgradeComplete ();
+	}
+
+	public void movementSpeedUp(){
+		playerController.movementSpeedChange (movementSpeedUpAmount);
+		upgradeComplete ();
+	}
+
+	public void shotSpeedUp(){
+		playerShooting.shotSpeed += shotspeedUpAmount;
 		upgradeComplete ();
 	}
 }
