@@ -1,3 +1,2 @@
-pause on game over
-Score
-music
+seeker mine
+rework upgrade system

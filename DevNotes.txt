@@ -1,0 +1,13 @@
+For the future:
+General notes:
+	- try to design further before implementing features. It would make abstraction and code planning way easier.
+	- Define what i want to easily be changeable for balancing etc.
+	- Delegates actions and events seem to be very usefull in many cases.
+
+Plans for upgrade system
+	- pool of upgrades and give a choice of 3 or 4
+	- take out certain upgrades when taken once (like pierce)
+	- make powerfull upgrades more rare or make multiple pools of upgrades.
+
+	this would probably require a complete rework of how upgrades ar^^e implemented (with a new upgrade base class for example)
+	but I have to think about if it would be move on to a new project now that I have learned the basics and make the next one with a better structure.
