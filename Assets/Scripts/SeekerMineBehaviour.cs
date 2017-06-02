@@ -36,10 +36,11 @@ public class SeekerMineBehaviour : MonoBehaviour {
 		float distance = (player.transform.position - transform.position).sqrMagnitude;
 		if (!isAwake && distance <= wakeUpDistance) {
 			isAwake = true;
-			gameObject.AddComponent<SeekerMineMovement> ();
+			gameObject.GetComponent<SeekerMineMovement> ().enabled = true;
 		}else if(!isArmed && distance <= armingDistance){
 			isArmed = true;
-			Destroy(gameObject.GetComponent<SeekerMineMovement> ());
+			gameObject.GetComponent<SeekerMineMovement> ().enabled = false;
+			gameObject.GetComponent<SeekerMineExplosion> ().enabled = true;
 		}
 
 	}
