@@ -33,11 +33,9 @@ public class UpgradeManager : MonoBehaviour {
 
 	//damage up default
 	public void damageUp(){
-		damageUp (damageUpAmount);
+		Upgrade_DamageUp dmgUp = new Upgrade_DamageUp ();
+		dmgUp.applyUpgrade ();
 		upgradeComplete ();
-	}
-	public void damageUp (float amount){
-		playerShooting.shotDamage+=amount;
 	}
 
 	//firerate up default
