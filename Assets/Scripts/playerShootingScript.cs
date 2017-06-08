@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerShootingScript : MonoBehaviour {
 
 	[SerializeField]
-	public float fireDelay =1.0f; //time between shots in seconds
+	private float fireDelay =1.0f; //time between shots in seconds
 	private float timeSinceShot = 0.0f;
 	[SerializeField]
 	public float shotSpeed =1.0f;
@@ -117,4 +117,11 @@ public class playerShootingScript : MonoBehaviour {
 		hasPierce = enabled;
 	}
 
+	public void fireRateChange(float multiplier){
+		fireDelay *= multiplier;
+	}
+
+	public void shotSpeedChange(float amount){
+		shotSpeed += amount;
+	}
 }

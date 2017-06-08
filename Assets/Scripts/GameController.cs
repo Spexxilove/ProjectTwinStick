@@ -55,6 +55,7 @@ public class GameController : MonoBehaviour
 
 	public void startUpgradePhase ()
 	{
+		GetComponent<UpgradeManager> ().startUpgradePhase ();
 		UpgradeWindow.SetActive (true);
 		isUpgrading = true;
 		isPaused = true;

@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public  class Upgrade_DamageUp : Upgrade {
+public class Upgrade_AddPiercing : Upgrade {
 
-	private static float damageUpAmount = 1.0f;
-
-	public Upgrade_DamageUp(){
-		name = "Damage Up";
-		numberOfUses = -1;
+	public Upgrade_AddPiercing(){
+		name = "Piercing Shot";
+		numberOfUses = 1;
 	}
 
 	public override void applyUpgrade(){
 		GameObject player = GameObject.Find ("Player");
 		playerShootingScript playerShooting = player.GetComponent<playerShootingScript> ();
-		playerShooting.shotDamage+=damageUpAmount;
+		playerShooting.setPiercing (true);
 	}
 }

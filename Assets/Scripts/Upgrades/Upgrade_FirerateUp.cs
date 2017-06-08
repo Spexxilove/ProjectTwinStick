@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public  class Upgrade_DamageUp : Upgrade {
+public class Upgrade_FirerateUp : Upgrade {
 
-	private static float damageUpAmount = 1.0f;
+	private float firerateMultiplier = 0.9f;
 
-	public Upgrade_DamageUp(){
-		name = "Damage Up";
+	public Upgrade_FirerateUp(){
+		name = "Firerate Up";
 		numberOfUses = -1;
 	}
 
 	public override void applyUpgrade(){
 		GameObject player = GameObject.Find ("Player");
 		playerShootingScript playerShooting = player.GetComponent<playerShootingScript> ();
-		playerShooting.shotDamage+=damageUpAmount;
+		playerShooting.fireRateChange (firerateMultiplier);
 	}
 }
+

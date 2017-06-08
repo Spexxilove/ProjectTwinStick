@@ -1,78 +1,74 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeManager : MonoBehaviour {
 
-	private GameObject player;
-	private PlayerController playerController;
-	private playerShootingScript playerShooting;
 	private GameController gameController;
 
+	private List<Upgrade> upgradePool;
+
+	// contains upgrades that are currently available
+	private List<Upgrade> currentUpgrades;
+
 	[SerializeField]
-	private float fireRateUpMultiplier; // between 0 and 1
-	[SerializeField]
-	private float damageUpAmount; // amount added per damage up
-	[SerializeField]
-	private float upgradeHealAmount;
-	[SerializeField]
-	private float movementSpeedUpAmount;
-	[SerializeField]
-	private float shotspeedUpAmount;
+	private List<Button> upgradeButtons;
 
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find ("Player");
-		playerController = player.GetComponent<PlayerController> ();
-		playerShooting = player.GetComponent<playerShootingScript> ();
-
+		initUpgradePool ();
 		gameController = GameObject.Find ("GameController").GetComponent<GameController>();
 	}
-	
 
-	//damage up default
-	public void damageUp(){
-		Upgrade_DamageUp dmgUp = new Upgrade_DamageUp ();
-		dmgUp.applyUpgrade ();
-		upgradeComplete ();
+	// initialise upgrade pool
+	// TODO: find a better way to add one of each upgrade
+	private void initUpgradePool (){
+		upgradePool = new List<Upgrade> ();
+		upgradePool.Add (new Upgrade_DamageUp ());
+		upgradePool.Add (new Upgrade_FirerateUp ());
+		upgradePool.Add (new Upgrade_AddCannon ());
+		upgradePool.Add (new Upgrade_MovementspeedUp ());
+		upgradePool.Add (new Upgrade_ShotspeedUp());
+		upgradePool.Add (new Upgrade_AddPiercing ());
 	}
 
-	//firerate up default
-	public void fireRateUp(){
-		fireRateUp (fireRateUpMultiplier);
-		upgradeComplete ();
+	// removes random upgrade from pool and returns it
+	public Upgrade getRandomUpgrade(){
+		int index = Random.Range (0, upgradePool.Count);
+		Upgrade up = upgradePool [index];
+		upgradePool.RemoveAt (index);
+		return up;
 	}
-	public void fireRateUp(float multiplier){
-		playerShooting.fireDelay *= multiplier;
+
+	public void startUpgradePhase(){
+		currentUpgrades = new List<Upgrade> ();
+		foreach (Button button in upgradeButtons) {
+			Upgrade up = getRandomUpgrade ();
+			currentUpgrades.Add (up);
+			button.transform.Find ("Text").GetComponent<Text> ().text = up.name;
+		}
+	}
+
+	public void chooseUpgrade(int index){
+		Upgrade chosenUpgrade = currentUpgrades [index];
+		chosenUpgrade.applyUpgrade ();
+
+		// reduce number of uses and remove upgrade if out of uses
+		if (chosenUpgrade.numberOfUses > 0) {
+			chosenUpgrade.numberOfUses--;
+			if(chosenUpgrade.numberOfUses== 0)
+				currentUpgrades.RemoveAt (index);
+		}
+
+		// return remaining upgrades to pool
+		upgradePool.AddRange (currentUpgrades);
+		currentUpgrades = new List<Upgrade> ();
+		upgradeComplete ();
 	}
 
 	private void upgradeComplete(){
 		gameController.endUpgradePhase ();
-	}
-
-	public void addCannon(){
-		playerShooting.addCannon ();
-		upgradeComplete ();
-	}
-
-	public void setPiercing(){
-		playerShooting.setPiercing (true);
-		upgradeComplete ();
-	}
-
-	public void healPlayer(){
-		player.GetComponent<Health> ().heal (upgradeHealAmount);
-		upgradeComplete ();
-	}
-
-	public void movementSpeedUp(){
-		playerController.movementSpeedChange (movementSpeedUpAmount);
-		upgradeComplete ();
-	}
-
-	public void shotSpeedUp(){
-		playerShooting.shotSpeed += shotspeedUpAmount;
-		upgradeComplete ();
 	}
 }
