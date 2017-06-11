@@ -7,7 +7,7 @@ The goal is to build a functional twin stick shooter with the following features
 
 Primary Features :
 	- Twin stick movement and shooting gameplay
-	- Enemies spanning in waves with increasing difficulty
+	- Enemies spawning in waves with increasing difficulty
 	- Multiple enemy types (like 5 maybe?) with different behaviours
 	- Upgrade system for player
 	- Score for eliminated enemies
@@ -22,5 +22,11 @@ Secondary (optional) Features:
 	- Boss enemy
 
 Used software:
+	Engine:
+		-Unity3D
 	sound:
 		-Bfxr (http://www.bfxr.net/)
+	Modelling:
+		-Autodesk Maya
+	Sprites:
+		-Gimp
