@@ -9,8 +9,8 @@ public class EnemyDeath : MonoBehaviour
 
 	public event EnemyDeathEffectHandler OnEnemyDeath;
 
-	void Start(){		
-		OnEnemyDeath += checkWinCondition;
+	void Start(){	
+		OnEnemyDeath += EnemyRegistration.getDefaultEnemyDeathEffects ();
 	}
 
 	public void onEnemyDeath ()
@@ -18,10 +18,7 @@ public class EnemyDeath : MonoBehaviour
 		OnEnemyDeath (this.gameObject);
 	}
 
-	public static void checkWinCondition(GameObject enemy){
-		WaveGenerator wGenerator = GameObject.Find ("GameController").GetComponent<WaveGenerator> ();
-		wGenerator.enemyKilled ();
-	}
+
 
 
 }

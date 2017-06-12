@@ -25,6 +25,7 @@ public class WaveGenerator : MonoBehaviour {
 	void Start () {
 		wavenumber = 0;
 		Instantiate (waveTrigger);
+		GetComponent<EnemyRegistration> ().addDefaultEnemyDeathEffect(this.checkWinCondition);
 	}
 
 	public void spawnWave(){
@@ -66,5 +67,9 @@ public class WaveGenerator : MonoBehaviour {
 		numberOfAliveEnemies--;
 		if (numberOfAliveEnemies == 0)
 			gameObject.GetComponent<GameController> ().endWave ();;
+	}
+
+	public void checkWinCondition(GameObject enemy){
+		enemyKilled ();
 	}
 }
