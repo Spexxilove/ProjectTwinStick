@@ -11,6 +11,11 @@ public class ShotScript : MonoBehaviour {
 	public bool isPiercing =false;
 	private float timeSinceInstantiation = 0.0f;
 
+	public delegate void onHitEffectHandler (Collider2D other ,ref float damageAmount);
+
+	// all effects that are triggered on enemy hit. can change damage
+	public event onHitEffectHandler onHitEffects;
+
 	void FixedUpdate () {
 		// move shot
 		transform.Translate (Vector3.up*Time.fixedDeltaTime*shotSpeed);
@@ -33,8 +38,9 @@ public class ShotScript : MonoBehaviour {
 				break;
 
 			default:
-				if (other.CompareTag(targetTag))
-					enemyHit (other.gameObject);
+				if (other.CompareTag (targetTag))
+
+					enemyHit (other);
 				break;
 
 
@@ -48,12 +54,18 @@ public class ShotScript : MonoBehaviour {
 		triggerDeathEffects();
 	}
 
-	private void enemyHit(GameObject enemy){
+	private void enemyHit(Collider2D other){
+	float localDamage = damage;
+		if (onHitEffects != null) {
+			onHitEffects (other, ref localDamage);
+		}
+
+		GameObject enemy = other.gameObject;
 		Health enemyHealth = enemy.GetComponent<Health> ();
 		if (enemyHealth == null) {
 			return;
 		}
-		enemyHealth.takeDamage (damage);
+		enemyHealth.takeDamage (localDamage);
 		if (!isPiercing) {
 			triggerDeathEffects ();
 		}

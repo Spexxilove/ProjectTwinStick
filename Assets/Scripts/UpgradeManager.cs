@@ -32,6 +32,7 @@ public class UpgradeManager : MonoBehaviour {
 		upgradePool.Add (new Upgrade_MovementspeedUp ());
 		upgradePool.Add (new Upgrade_ShotspeedUp());
 		upgradePool.Add (new Upgrade_AddPiercing ());
+		upgradePool.Add (new Upgrade_SlowOnHit ());
 	}
 
 	// removes random upgrade from pool and returns it

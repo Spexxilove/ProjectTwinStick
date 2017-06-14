@@ -18,6 +18,8 @@ public class playerShootingScript : MonoBehaviour {
 	[SerializeField]
 	private GameObject shotObject;
 
+	private ShotScript.onHitEffectHandler onHitEffects;
+
 	//reference points for cannons
 	[SerializeField]
 	private GameObject playerCannonLeft;
@@ -71,6 +73,7 @@ public class playerShootingScript : MonoBehaviour {
 			shotScript.aliveTime = shotSurvivalTime;
 			shotScript.isPiercing = hasPierce;
 			shotScript.targetTag = "Enemy";
+			shotScript.onHitEffects += onHitEffects;
 		}
 		playRandomShotSound ();
 	}
@@ -126,5 +129,9 @@ public class playerShootingScript : MonoBehaviour {
 
 	public void shotSpeedChange(float amount){
 		shotSpeed += amount;
+	}
+
+	public void addOnHitEffect(ShotScript.onHitEffectHandler onHitEffect){
+		onHitEffects += onHitEffect;
 	}
 }
