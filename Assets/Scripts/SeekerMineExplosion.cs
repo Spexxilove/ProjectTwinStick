@@ -15,6 +15,12 @@ public class SeekerMineExplosion : MonoBehaviour {
 	[SerializeField]
 	private GameObject explosionZone; //needs to have radius 1
 
+	private StatusEffectManager statusEffectManager;
+
+	void Awake(){
+		statusEffectManager = GetComponent<StatusEffectManager> ();
+	}
+
 	void Start(){
 		drawDangerZone ();
 	}
@@ -30,7 +36,7 @@ public class SeekerMineExplosion : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		explosionDelay -= Time.deltaTime;
+		explosionDelay -= Time.deltaTime/ statusEffectManager.shotDelayMulti;
 		if (explosionDelay <= 0)
 			triggerExplosion ();
 	}
@@ -46,7 +52,7 @@ public class SeekerMineExplosion : MonoBehaviour {
 		foreach (Collider2D hitCollider in hitColliders) {
 			Health health = hitCollider.gameObject.GetComponent<Health> ();
 			if (health != null) {
-				health.takeDamage (explosionDamage);
+				health.takeDamage (explosionDamage* statusEffectManager.damageMulti);
 			}
 		}
 	}

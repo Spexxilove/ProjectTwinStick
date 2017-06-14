@@ -20,12 +20,13 @@ public class WaveGenerator : MonoBehaviour {
 	[SerializeField]
 	private GameObject waveTrigger;
 
-
-	// Use this for initialization
-	void Start () {
+	void Awake () {
 		wavenumber = 0;
-		Instantiate (waveTrigger);
 		GetComponent<EnemyRegistration> ().addDefaultEnemyDeathEffect(this.checkWinCondition);
+	}
+
+	void Start(){
+		Instantiate (waveTrigger);
 	}
 
 	public void spawnWave(){

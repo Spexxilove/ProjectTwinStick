@@ -33,10 +33,13 @@ public class playerShootingScript : MonoBehaviour {
 	private GameObject[] playerCannons;
 
 	private GameController gameController;
+	private StatusEffectManager statusEffectManager;
+
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 			hasPierce=false;
 		gameController = GameObject.Find ("GameController").GetComponent<GameController> ();
+		statusEffectManager = GetComponent<StatusEffectManager> ();
 		addCannon ();
 	}
 	
@@ -48,7 +51,7 @@ public class playerShootingScript : MonoBehaviour {
 	}
 
 	private void updateActionInput(){
-		timeSinceShot -= Time.deltaTime;
+		timeSinceShot -= Time.deltaTime / statusEffectManager.shotDelayMulti;
 
 		if (Input.GetButton("Fire1")) {
 			if (timeSinceShot <= 0.0f) {
@@ -63,8 +66,8 @@ public class playerShootingScript : MonoBehaviour {
 		foreach (GameObject playerCannon in playerCannons) {
 			GameObject shotInstance = Instantiate (shotObject, playerCannon.transform.position, playerCannon.transform.rotation);
 			ShotScript shotScript = shotInstance.GetComponent<ShotScript> ();
-			shotScript.damage = shotDamage;
-			shotScript.shotSpeed = shotSpeed;
+			shotScript.damage = shotDamage * statusEffectManager.damageMulti;
+			shotScript.shotSpeed = shotSpeed * statusEffectManager.shotspeedMulti;
 			shotScript.aliveTime = shotSurvivalTime;
 			shotScript.isPiercing = hasPierce;
 			shotScript.targetTag = "Enemy";

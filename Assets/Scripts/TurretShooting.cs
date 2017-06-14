@@ -27,17 +27,19 @@ public class TurretShooting : MonoBehaviour {
 
 	private float reloadTimer = 0.0f;
 
+	private StatusEffectManager statusEffectManager;
 
 	// Use this for initialization
 	void Start () {
 		target = GameObject.Find ("Player");
+		statusEffectManager = GetComponentInParent<StatusEffectManager> ();
 	}
 		
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (target != null) {
 			float angle = faceTarget ();
-			reloadTimer -= Time.fixedDeltaTime;
+			reloadTimer -= Time.fixedDeltaTime/statusEffectManager.shotDelayMulti;
 			if (angle < shootingAngle && reloadTimer <= 0.0f) {
 				fireShot ();
 				reloadTimer = shotDelay;
@@ -49,7 +51,8 @@ public class TurretShooting : MonoBehaviour {
 	private float faceTarget(){
 		Vector3 direction = target.transform.position-transform.position;
 		float angle = -Vector3.Angle(transform.up,direction)*Mathf.Sign(Vector3.Dot(transform.right,direction));
-		float angleClamped = Mathf.Clamp (angle, -rotateSpeed, rotateSpeed);
+		float currentRotatespeed = statusEffectManager.movementspeedMulti * rotateSpeed; 
+		float angleClamped = Mathf.Clamp (angle, -currentRotatespeed, currentRotatespeed);
 		GetComponent<Rigidbody2D>().MoveRotation(GetComponent<Rigidbody2D>().rotation+angleClamped);
 		return Mathf.Abs(angle);
 	}
@@ -59,8 +62,8 @@ public class TurretShooting : MonoBehaviour {
 		
 		GameObject shotInstance = Instantiate (shotObject, cannon.transform.position, cannon.transform.rotation);
 		ShotScript shotScript = shotInstance.GetComponent<ShotScript> ();
-		shotScript.damage = shotDamage;
-		shotScript.shotSpeed = shotSpeed;
+		shotScript.damage = shotDamage * statusEffectManager.damageMulti;
+		shotScript.shotSpeed = shotSpeed * statusEffectManager.shotspeedMulti;
 		shotScript.aliveTime = shotSurvivalTime;
 		shotScript.isPiercing = false;
 		shotScript.targetTag = "Player";

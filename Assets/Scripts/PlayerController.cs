@@ -7,9 +7,11 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	private float movementspeed =1.0f;
 	private GameController gameController;
+	private StatusEffectManager statusEffectManager;
 
-	void Start(){
+	void Awake(){
 		gameController = GameObject.Find ("GameController").GetComponent<GameController> ();
+		statusEffectManager = GetComponent<StatusEffectManager> ();
 	}
 
 	void FixedUpdate () {
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 		inputVector.Normalize ();
 
 		Rigidbody2D rb = GetComponent<Rigidbody2D> ();
-		rb.MovePosition (new Vector2(transform.position.x,transform.position.y)+inputVector * movementspeed * Time.fixedDeltaTime);
+		rb.MovePosition (new Vector2(transform.position.x,transform.position.y)+inputVector * movementspeed* statusEffectManager.movementspeedMulti * Time.fixedDeltaTime);
 
 		//rotate player to face pointer
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

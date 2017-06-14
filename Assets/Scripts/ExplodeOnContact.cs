@@ -10,7 +10,8 @@ public class ExplodeOnContact : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collision){
 		GameObject collisionObj = collision.gameObject;
 		if (collisionObj.CompareTag ("Player")) {
-			collisionObj.GetComponent<Health> ().takeDamage (contactDamage);
+			float damageMulti = GetComponent<StatusEffectManager> ().damageMulti;
+			collisionObj.GetComponent<Health> ().takeDamage (contactDamage*damageMulti);
 			Health h = GetComponent<Health> ();
 			h.takeDamage (h.getHealth());
 		}

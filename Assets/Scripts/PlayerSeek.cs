@@ -10,38 +10,29 @@ public class PlayerSeek : MonoBehaviour {
 	[SerializeField]
 	private float rotateSpeed = 45.0f;
 
-	GameObject target;
-	Rigidbody2D rigidBody;
-
-	// Use this for initialization
+	private GameObject target;
+	private Rigidbody2D rigidBody;
+	private StatusEffectManager statusEffectManager;
 	void Start () {
 		target = GameObject.FindGameObjectWithTag ("Player");
-		if (target == null) {
-			print ("no player object found");
-			Destroy (gameObject);
-		}
 		rigidBody = gameObject.GetComponent<Rigidbody2D>();
-		if (rigidBody == null) {
-			print ("no rigidbody found");
-			Destroy (gameObject);
-		}
+		statusEffectManager = gameObject.GetComponent<StatusEffectManager> ();
 	}
-	
-	// Update is called once per frame
+
 	void FixedUpdate () {
 		if (target != null) {
 			faceTarget ();
-			rigidBody.MovePosition (rigidBody.position + (Vector2)rigidBody.transform.up * movementSpeed * Time.fixedDeltaTime);
+			rigidBody.MovePosition (rigidBody.position + (Vector2)rigidBody.transform.up * movementSpeed * statusEffectManager.movementspeedMulti * Time.fixedDeltaTime);
 		}
 	}
 
 	private void faceTarget (){
 		
 		//rotate to face target
-
 		Vector3 direction = target.transform.position-transform.position;
 		float angle = -Vector3.Angle(transform.up,direction)*Mathf.Sign(Vector3.Dot(transform.right,direction));
-		angle = Mathf.Clamp (angle, -rotateSpeed, rotateSpeed);
+		float currentRotationSpeed = rotateSpeed * statusEffectManager.movementspeedMulti;
+		angle = Mathf.Clamp (angle, -currentRotationSpeed, currentRotationSpeed);
 		rigidBody.MoveRotation(rigidBody.rotation+angle);
 
 
