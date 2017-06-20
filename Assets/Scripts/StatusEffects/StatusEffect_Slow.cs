@@ -21,7 +21,7 @@ public class StatusEffect_Slow : TimedStatusEffect {
 
 	protected override void endEffect ()
 	{
-		statusEffectManager.movementspeedMulti /= slowMultiplier;
+	statusEffectManager.movementspeedMulti /= slowMultiplier;
 	}
 
 	protected override void updateEffect (float deltaTime)
